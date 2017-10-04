@@ -12,11 +12,14 @@ import java.util.Scanner;
 import java.nio.file.Files;
 
 public class FileHandler {
+    Scanner input = new Scanner(System.in);
 
     public FileHandler(String directory, String fileName) {
         this.directory = Paths.get(directory);
         this.fileName = Paths.get(directory, fileName).toAbsolutePath();
     }
+
+    List<String> contacts = new ArrayList<String>();
 
     private Path directory;
     private Path fileName;
@@ -31,6 +34,8 @@ public class FileHandler {
         }
     }
 
+
+    ///// Create file.
     public void createFile () throws IOException {
         if (!Files.exists(fileName)) {
             Files.createFile(this.fileName);
@@ -39,8 +44,19 @@ public class FileHandler {
     }
 
 
+    ///////
     public void readFile (Path fileName) throws IOException {
         System.out.println(Files.readAllLines(fileName));
+    }
+
+
+    public void writeFile() throws IOException {
+        System.out.println("What is the name of your new contact?");
+        String userInput = input.nextLine();
+        System.out.println("Please enter phone number as follows: (xxx)xxx-xxxx");
+        String userNum = input.nextLine();
+        contacts.add(userInput + ", " + userNum);
+        Files.write(fileName, contacts, StandardOpenOption.APPEND);
     }
 
 
