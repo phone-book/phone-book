@@ -14,23 +14,33 @@ import java.nio.file.Files;
 public class FileHandler {
 
     public FileHandler(String directory, String fileName) {
-        this.fileName = Paths.get(directory, fileName);
+        this.directory = Paths.get(directory);
+        this.fileName = Paths.get(directory, fileName).toAbsolutePath();
     }
 
     private Path directory;
     private Path fileName;
 
+    public Path getFileContent() {
+        return fileName;
+    }
 
     public void createDirectory () throws IOException {
-        if (!Files.exists(this.fileName.getParent())) {
-            Files.createDirectory(this.fileName.getParent());
+        if (!Files.exists(directory)) {
+            Files.createDirectory(this.directory);
         }
     }
 
     public void createFile () throws IOException {
-        if (!Files.exists(this.fileName)) {
+        if (!Files.exists(fileName)) {
             Files.createFile(this.fileName);
         }
+        Path filePath = fileName.toAbsolutePath();
+    }
+
+
+    public void readFile (Path fileName) throws IOException {
+        System.out.println(Files.readAllLines(fileName));
     }
 
 
