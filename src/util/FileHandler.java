@@ -15,7 +15,7 @@ import util.Input;
 
 public class FileHandler {
     Scanner input = new Scanner(System.in);
-    ArrayList<String> contacts;
+    List<String> contacts;
     List<String> ourList;
     Input utilities = new Input();
 
@@ -52,13 +52,17 @@ public class FileHandler {
     ///////
     public List<String> readFile() throws IOException {
         ourList = Files.readAllLines(this.fileName);
+        contacts = ourList;
         return ourList;
     }
 
 
     public void writeFile() throws IOException {
+        Files.write(fileName, contacts);
 
-        Files.write(fileName, contacts, StandardOpenOption.APPEND);
+    }
+
+    public void deleteFile() throws IOException {
 
     }
 
