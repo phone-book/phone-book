@@ -55,12 +55,12 @@ public class ContactsApplication {
 
     static public void viewContacts() throws IOException {
         System.out.println("| Name!      |  Phone Number   |");
-        System.out.println("-----------------------------");
+        System.out.println("--------------------------------");
         List<String> contactFile = directory1.readFile();
         for (String line : contactFile) {
             String[] parts = line.split(",");
             if (parts.length == 2) {
-                System.out.printf("| %-10s| ", parts[0]);
+                System.out.printf("| %-11s| ", parts[0]);
                 System.out.println(parts[1] + "   |");
             }
         }
@@ -78,7 +78,7 @@ public class ContactsApplication {
             String[] parts = line.split(",");
 
             if (contact.equalsIgnoreCase(parts[0])) {
-                System.out.println("Name: " + parts[0] + " - " + "Number: " + parts[1]);
+                System.out.println("Name: " + parts[0] + "\n" + "Number: " + parts[1]);
                 found = true;
                 recursionFunc();
 
@@ -86,25 +86,61 @@ public class ContactsApplication {
         }
 
         if (!found) {
-            System.out.println("Contact not found!");
+            System.out.println("Contact not found!\nWould you like to add this contact? Y | N ");
+            boolean add = userInput.yesNo();
+            if (add) {
+                addContact(contact);
+            } else {
+                recursionFunc();
+            }
         }
 
     }
 
-    public static void addContact() throws IOException {
+    // When contact already exists in addContact()
+    static public void searchContact(String name) throws IOException {
+        List<String> contactFile = directory1.readFile();
+        for (String line : contactFile) {
+            String[] parts = line.split(",");
+
+            if (name.equalsIgnoreCase(parts[0])) {
+                System.out.println("Name: " + parts[0] + "\n" + "Number: " + parts[1]);
+            }
+        }
+    }
+
+        public static void addContact() throws IOException {
         System.out.println("What is the name of your new contact?");
         String name = userInput.getNextString().trim();
+        List<String> contactFile = directory1.readFile();
 
-        System.out.println("Please enter your phone number: (xxx)xxx-xxxx");
+        for (String line : contactFile) {
+            String[] parts = line.split(",");
+
+            if (name.equalsIgnoreCase(parts[0])) {
+                System.out.println("There is already a contact by this name:");
+                searchContact(name);
+                System.out.println("\nWould you like to add another contact with this name? Y | N");
+                boolean yes = userInput.yesNo();
+                if (yes) {
+                    addContact(name);
+                } else {
+                    contactsMenu();
+                }
+
+            }
+        }
+
+        System.out.println("Please enter the phone number: (xxx)xxx-xxxx");
         String phoneNumber = userInput.getNextString().trim();
 
-        boolean validated = validadePhoneNumber(phoneNumber);
+        boolean validated = validatePhoneNumber(phoneNumber);
 
         if (validated) {
 
             directory1.contacts.add(name + "," + phoneNumber);
             directory1.writeFile();
-            System.out.println("Contact added");
+            System.out.println("Contact added!");
             recursionFunc();
 
         } else {
@@ -115,6 +151,30 @@ public class ContactsApplication {
         }
 
     }
+
+    // When contact doesn't exist and user wants to add
+    public static void addContact(String name) throws IOException {
+
+        System.out.println("Please enter the phone number: (xxx)xxx-xxxx");
+        String phoneNumber = userInput.getNextString().trim();
+
+        boolean validated = validatePhoneNumber(phoneNumber);
+
+        if (validated) {
+
+            directory1.contacts.add(name + "," + phoneNumber);
+            directory1.writeFile();
+            System.out.println("Contact added!");
+            recursionFunc();
+
+        } else {
+
+            System.out.println("Invalid format: (xxx)xxx-xxxx");
+            addContact(name);
+
+        }
+    }
+
 
     public static void deleteContact() throws IOException {
         System.out.println("Who would you like to delete?");
@@ -131,7 +191,7 @@ public class ContactsApplication {
         }
     }
 
-    public static boolean validadePhoneNumber(String phoneNumber) {
+    public static boolean validatePhoneNumber(String phoneNumber) {
 
         return phoneNumber.charAt(0) == '(' &&
                 phoneNumber.charAt(4) == ')' &&
@@ -153,12 +213,12 @@ public class ContactsApplication {
     }
 
     public static void recursionFunc() throws IOException {
-        System.out.println("\nWould you like to go back to the main menu?");
+        System.out.println("\nWould you like to go back to the main menu? Y | N");
         boolean menuConfirmation = userInput.yesNo();
         if (menuConfirmation) {
             contactsMenu();
         } else {
-            System.out.println("GoodBye!");
+            System.out.println("Goodbye!");
         }
     }
 
