@@ -53,7 +53,7 @@ public class ContactsApplication {
     }
 
     static public void viewContacts() throws IOException {
-        System.out.println("| Name      |  Phone Number   |");
+        System.out.println("| Name!      |  Phone Number   |");
         System.out.println("-----------------------------");
         List<String> contactFile = directory1.readFile();
         for (String line : contactFile) {
