@@ -13,13 +13,15 @@ import java.nio.file.Files;
 
 public class FileHandlerTest {
     public static void main(String[] args) throws IOException {
-
     FileHandler directory1 = new FileHandler("resources", "contacts.txt");
+
     directory1.createDirectory();
     directory1.createFile();
-    directory1.readFile(directory1.getFileContent());
+//    directory1.readFile(directory1.getFileContent());
 
     directory1.writeFile();
 
     }
+
+
 }
