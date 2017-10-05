@@ -1,5 +1,6 @@
 package util;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import util.FileHandler;
 import util.Input;
 
@@ -118,7 +119,6 @@ public class ContactsApplication {
     public static void deleteContact() throws IOException {
         System.out.println("Who would you like to delete?");
         String contact = userInput.getNextString();
-
         List<String> contactFile = directory1.readFile();
         for (int i = 0; i < contactFile.size(); i++) {
             String[] parts = contactFile.get(i).split(",");
@@ -160,6 +160,10 @@ public class ContactsApplication {
         } else {
             System.out.println("GoodBye!");
         }
+    }
+
+    public static void replaceContact() throws IOException {
+        System.out.println("To be replaced");
     }
 
 }
