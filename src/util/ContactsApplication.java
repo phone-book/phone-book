@@ -54,7 +54,7 @@ public class ContactsApplication {
     }
 
     static public void viewContacts() throws IOException {
-        System.out.println("| Name!      |  Phone Number   |");
+        System.out.println("| Name      |  Phone Number   |");
         System.out.println("--------------------------------");
         List<String> contactFile = directory1.readFile();
         for (String line : contactFile) {
@@ -124,6 +124,7 @@ public class ContactsApplication {
                 boolean yes = userInput.yesNo();
                 if (yes) {
                     addContact(name);
+                    return;
                 } else {
                     contactsMenu();
                 }
@@ -146,7 +147,7 @@ public class ContactsApplication {
         } else {
 
             System.out.println("Invalid format: (xxx)xxx-xxxx");
-            addContact();
+            addContact(name);
 
         }
 
