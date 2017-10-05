@@ -54,12 +54,12 @@ public class ContactsApplication {
 
     static public void viewContacts() throws IOException {
         System.out.println("| Name!      |  Phone Number   |");
-        System.out.println("-----------------------------");
+        System.out.println("--------------------------------");
         List<String> contactFile = directory1.readFile();
         for (String line : contactFile) {
             String[] parts = line.split(",");
             if (parts.length == 2) {
-                System.out.printf("| %-10s| ", parts[0]);
+                System.out.printf("| %-11s| ", parts[0]);
                 System.out.println(parts[1] + "   |");
             }
         }
