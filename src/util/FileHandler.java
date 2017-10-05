@@ -22,7 +22,11 @@ public class FileHandler {
     public FileHandler(String directory, String fileName) {
         this.directory = Paths.get(directory);
         this.fileName = Paths.get(directory, fileName).toAbsolutePath();
-        this.contacts = new ArrayList<>();
+        try {
+            this.contacts = readFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
