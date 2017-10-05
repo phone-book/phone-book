@@ -85,7 +85,7 @@ public class ContactsApplication {
         }
 
         if (!found) {
-            System.out.println("Contact not found");
+            System.out.println("Contact not found!");
         }
 
     }
