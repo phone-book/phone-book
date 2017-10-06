@@ -23,6 +23,7 @@ public class ContactsApplication {
     }
 
     public static void contactsMenu() throws IOException {
+        System.out.println("Welcome to your phone book!");
         System.out.println("1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
@@ -129,7 +130,7 @@ public class ContactsApplication {
                     addContact(name);
                     return;
                 } else {
-                    contactsMenu();
+                    recursionFunc();
                 }
 
             }
@@ -184,12 +185,22 @@ public class ContactsApplication {
         System.out.println("Who would you like to delete?");
         String contact = userInput.getNextString();
         List<String> contactFile = directory1.readFile();
+        boolean found = false;
         for (int i = 0; i < contactFile.size(); i++) {
             String[] parts = contactFile.get(i).split(",");
             if (contact.equalsIgnoreCase(parts[0])) {
                 directory1.contacts.remove(i);
                 directory1.writeFile();
                 System.out.println("Contact deleted!");
+                recursionFunc();
+            }
+        }
+        if (!found) {
+            System.out.println("Contact not found. Would you like to delete another contact? Y | N");
+            boolean yes = userInput.yesNo();
+            if (yes) {
+                deleteContact();
+            } else {
                 recursionFunc();
             }
         }
