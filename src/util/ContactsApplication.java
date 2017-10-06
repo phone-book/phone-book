@@ -30,11 +30,14 @@ public class ContactsApplication {
                 "5. Exit.\n");
 
 
-        String option = userInput.getNextString();
+        //String option = userInput.getNextString();
 
-        int userNum = Integer.valueOf(option);
+        int option = userInput.getInt(1, 5);
 
-        switch (userNum) {
+        //int userNum = Integer.valueOf(option);
+
+        //switch (userNum) {
+        switch(option) {
             case 1:
                 viewContacts();
                 break;
@@ -204,7 +207,7 @@ public class ContactsApplication {
 
     }
 
-    private static boolean isNaN(String substring) {
+    public static boolean isNaN(String substring) {
         try {
             Integer.parseInt(substring);
             return false;
@@ -212,6 +215,8 @@ public class ContactsApplication {
             return true;
         }
     }
+
+
 
     public static void recursionFunc() throws IOException {
         System.out.println("\nWould you like to go back to the main menu? Y | N");

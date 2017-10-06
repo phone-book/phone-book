@@ -28,15 +28,22 @@ public class Input {
 
         String confirm = scanner.next();
 
-        return confirm.equalsIgnoreCase("y") || confirm.equalsIgnoreCase("yes");
-
+        if (confirm.equalsIgnoreCase("y") || confirm.equalsIgnoreCase("yes")) {
+            return true;
+        } else if (confirm.equalsIgnoreCase("n") || confirm.equalsIgnoreCase("no")) {
+            return false;
+        } else {
+            System.out.println("That is not a valid response. Please enter Y | N");
+            return yesNo();
+        }
     }
 
     ////////////////// Check integer for min and max.
     public int getInt(int min, int max) {
         try {
-            int userNum = Integer.valueOf(getString());
-            if (userNum < min || userNum > max) {
+            int userNum = Integer.valueOf(getNextString());
+            String userNumToString = Integer.toString(userNum);
+            if (userNum < min || userNum > max || ContactsApplication.isNaN(userNumToString)) {
 
                 System.out.println("Enter a number between " + min + " and " + max + ": ");
 
@@ -48,7 +55,7 @@ public class Input {
             }
         } catch (Exception e) {
 
-            System.out.println("invalid input.\ntry again.");
+            System.out.println("Invalid input. Try again.");
 
             return getInt(min, max);
 

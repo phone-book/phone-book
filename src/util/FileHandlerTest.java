@@ -17,7 +17,6 @@ public class FileHandlerTest {
 
     directory1.createDirectory();
     directory1.createFile();
-//    directory1.readFile(directory1.getFileContent());
 
     directory1.writeFile();
 
