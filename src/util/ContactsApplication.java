@@ -74,7 +74,7 @@ public class ContactsApplication {
     }
 
     static public void searchContact() throws IOException {
-        System.out.println("Search contact by name:");
+        System.out.println("Search contact by first name:");
         String contact = userInput.getNextString();
         List<String> contactFile = directory1.readFile();
         boolean found = false;
@@ -114,7 +114,7 @@ public class ContactsApplication {
     }
 
         public static void addContact() throws IOException {
-        System.out.println("What is the name of your new contact?");
+        System.out.println("What is the first name of your new contact?");
         String name = userInput.getNextString().trim();
         List<String> contactFile = directory1.readFile();
 
